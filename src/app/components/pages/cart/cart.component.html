@@ -1,4 +1,4 @@
-<div *ngIf="hasResult else noResult">
+<div *ngIf="hasResult; else noResult">
   <section *ngFor="let product of products" class="container">
     <div class="item">
       <img src="https://dummyimage.com/200" [alt]="product?.title" />
@@ -9,9 +9,10 @@
         <b>Genre:</b> <i>{{ product?.genre }}</i>
       </p>
       <p><b>Description:</b> {{ product?.description }}</p>
-      <p><b>Price:</b> ${{ product?.price }}</p>
+      <p><b>Price:</b> ${{ product?.price}}</p>
       <mat-form-field class="example-full-width">
         <input
+          #qty
           matInput
           placeholder="QTY"
           type="number"
@@ -19,6 +20,7 @@
           name="qty"
           value="1"
           [(ngModel)]="product.qty"
+          (change)="updateQty(qty.value,product)"
         />
       </mat-form-field>
       <button mat-flat-button color="primary" (click)="removeItem(product.id)">
@@ -32,5 +34,5 @@
   </section>
 </div>
 <ng-template #noResult>
-        <p id="not-results">Not items results</p>
+  <p id="not-results">Not items results</p>
 </ng-template>
