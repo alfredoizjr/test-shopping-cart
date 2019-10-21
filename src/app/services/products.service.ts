@@ -1,50 +1,50 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+// npm notification pakage
+import { NotifierService } from "angular-notifier";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ProductsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private notifierService: NotifierService
+  ) {}
 
   getProducts() {
-    return this.http.get('assets/data/DATA.json');
+    return this.http.get("assets/data/DATA.json");
   }
-
 
   // add product to cart
   addProduct(product: any) {
-
     // declarate the array to build the data
     let amount: any[] = [];
     // push the data
     amount.push(product);
     // if existe alredy the just update the data
-    if (localStorage.getItem('cart')) {
-      let temp = JSON.parse(localStorage.getItem('cart'));
+    if (localStorage.getItem("cart")) {
+      let temp = JSON.parse(localStorage.getItem("cart"));
       let newTemp = temp.filter(p => p.id !== product.id);
-      amount = [...newTemp, product],
-        localStorage.setItem('cart', JSON.stringify(amount));
+      (amount = [...newTemp, product]),
+        localStorage.setItem("cart", JSON.stringify(amount));
     } else {
       // if not them save the data we push early
-      localStorage.setItem('cart', JSON.stringify(amount));
+      localStorage.setItem("cart", JSON.stringify(amount));
     }
-
-    alert('add product to the cart');
+    // use notification
+    this.notifierService.notify("success", "The item was added to the cart!");
   }
 
-// remove item
+  // remove item
   removeItem(id) {
-    if (localStorage.getItem('cart')) {
-      let temp = JSON.parse(localStorage.getItem('cart'));
+    if (localStorage.getItem("cart")) {
+      let temp = JSON.parse(localStorage.getItem("cart"));
       let newList = temp.filter(p => p.id !== id);
-      localStorage.removeItem('cart');
-      localStorage.setItem('cart', JSON.stringify(newList));
-
-      alert('remove item');
-
+      localStorage.removeItem("cart");
+      localStorage.setItem("cart", JSON.stringify(newList));
+      // use notification
+      this.notifierService.notify("error", "The item was remove!");
     }
   }
-
 }

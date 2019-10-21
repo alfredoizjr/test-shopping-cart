@@ -14,7 +14,20 @@
           <p>
            {{ item[0].description }}
           </p>
-          <p><b>Price:</b> ${{ item[0].price }}</p>
+          <p><b>Price:</b> ${{ item[0].price * qty }}</p>
+          <p>
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                placeholder="QTY"
+                type="number"
+                min="1"
+                name="qty"
+                value="1"
+                [(ngModel)]="qty"
+              />
+            </mat-form-field>
+          </p>
         </mat-card-content>
         <mat-card-actions>
           <a mat-flat-button color='primary' [routerLink]="['/product', item[0].id]" >DETAILS</a>
