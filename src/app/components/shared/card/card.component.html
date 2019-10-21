@@ -18,6 +18,6 @@
         </mat-card-content>
         <mat-card-actions>
           <a mat-flat-button color='primary' [routerLink]="['/product', item[0].id]" >DETAILS</a>
-          <button mat-flat-button color='primary'>ADD</button>
+          <button mat-flat-button color='primary' (click)="addItemToCart(item[0])">ADD</button>
         </mat-card-actions>
       </mat-card>
