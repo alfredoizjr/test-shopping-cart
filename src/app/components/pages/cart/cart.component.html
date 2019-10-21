@@ -1,3 +1,36 @@
-<section class="container">
-        <p>cart works!</p>
-</section>
+<div *ngIf="hasResult else noResult">
+  <section *ngFor="let product of products" class="container">
+    <div class="item">
+      <img src="https://dummyimage.com/200" [alt]="product?.title" />
+    </div>
+    <div class="item">
+      <h2>{{ product?.title }}</h2>
+      <p>
+        <b>Genre:</b> <i>{{ product?.genre }}</i>
+      </p>
+      <p><b>Description:</b> {{ product?.description }}</p>
+      <p><b>Price:</b> ${{ product?.price }}</p>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="QTY"
+          type="number"
+          min="1"
+          name="qty"
+          value="1"
+          [(ngModel)]="product.qty"
+        />
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="removeItem(product.id)">
+        Remove
+      </button>
+    </div>
+    <div class="divider"></div>
+  </section>
+  <section class="section-total">
+    <p><b>TOTAL: </b> ${{ granTotal }}</p>
+  </section>
+</div>
+<ng-template #noResult>
+        <p id="not-results">Not items results</p>
+</ng-template>

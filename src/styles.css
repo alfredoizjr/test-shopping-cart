@@ -25,6 +25,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .loading {
   width: 100%
 }
+.divider {
+  border: 1px solid #cccccc;
+  width: 100%;
+}
+
+.section-total {
+  width: 100%;
+}
+
+.section-total p {
+  margin-left: 1rem;
+}
 
 @media (max-width: 480px) {
     .container {

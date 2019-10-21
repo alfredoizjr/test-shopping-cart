@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,10 +18,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   public qty: number = 1;
 
   constructor(
-              private activeRouter: ActivatedRoute,
-               private productServ: ProductsService,
-               private _snackBar: MatSnackBar
-               ) { }
+    private activeRouter: ActivatedRoute,
+    private productServ: ProductsService,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     // get id parmas from url
@@ -35,15 +35,22 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   }
 
-  // get qty from qty component child
- 
-  // add product to cart
-  addProduct(product: Object) {
-    let addProduct = {...product, qty: this.qty}
-    localStorage.setItem('cart',JSON.stringify(addProduct));
-  }
 
- 
+  // add product to cart
+  setProduct(product: any) {
+    //build new object
+    let newObject: any = {
+      id: product.id,
+      title: product.title,
+      gerne: product.gerne,
+      description: product.description,
+      price: product.price * this.qty,
+      qty: this.qty
+    }
+
+    this.productServ.addProduct(newObject);
+
+  }
 
   ngOnDestroy() {
     // unsubcribe to prevent memory leak
