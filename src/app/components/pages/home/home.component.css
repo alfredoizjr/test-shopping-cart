@@ -1,0 +1,14 @@
+.pagination {
+    text-align: center;
+    padding: 1rem;
+}
+
+.pagination span {
+    margin: 1rem;
+}
+
+.search {
+    width: 100%;
+    text-align: center;
+    padding: 2rem;
+}

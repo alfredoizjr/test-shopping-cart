@@ -1,0 +1,15 @@
+<form class="example-form" novalidate (ngSubmit)="handleSubmitForm(form.value.search)" #form="ngForm">
+  <mat-form-field class="example-full-width">
+    <input 
+    matInput
+    (keyup)="handleSubmitForm(search.value)"
+     #search 
+     maxlength="256" 
+     placeholder="Search by name"
+     name="search"
+     ngModel
+     required
+     />
+    <mat-hint align="end">{{ search.value.length }} / 256</mat-hint>
+  </mat-form-field>
+</form>

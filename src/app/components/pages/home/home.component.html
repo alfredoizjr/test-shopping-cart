@@ -1,0 +1,16 @@
+<section class="container">
+  <div class="search">
+    <app-search (sendResultSearch)="getResultOfSearch($event)"></app-search>
+  </div>
+  <app-loading *ngIf="loading" class="loading"></app-loading>
+    <app-card
+    *ngFor="let product of queryFiltered | slice: (curPage * pageSize) - pageSize :curPage * pageSize"
+      class="card"
+      [item]="[product]"
+    ></app-card>
+</section>
+<div class="pagination">
+        <button mat-fab [disabled]="curPage == 1" (click)="curPage = curPage - 1"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <span>Page {{curPage}} of {{ numberOfPages() }}</span>
+        <button mat-fab [disabled]="curPage >= queryFiltered.length/pageSize" (click)="curPage = curPage + 1"><mat-icon>keyboard_arrow_right</mat-icon></button>
+</div>
