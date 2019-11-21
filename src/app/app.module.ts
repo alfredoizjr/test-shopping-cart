@@ -24,6 +24,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // services
 import { ProductsService } from "./services/products.service";
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ProductsService } from "./services/products.service";
     FormsModule,
     NotifierModule
   ],
-  providers: [ProductsService],
+  providers: [ProductsService,CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

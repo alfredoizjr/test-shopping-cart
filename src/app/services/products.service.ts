@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 // npm notification pakage
 import { NotifierService } from "angular-notifier";
+import { Products } from '../model/products';
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -10,10 +13,17 @@ export class ProductsService {
   constructor(
     private http: HttpClient,
     private notifierService: NotifierService
-  ) {}
+  ) { }
 
-  getProducts() {
-    return this.http.get("assets/data/DATA.json");
+  getProducts(): Observable<Products[]> {
+    //return this.http.get("assets/data/DATA.json");
+    return this.http.get("assets/data/DATA.json")
+      .pipe(
+        map((data: Products[]) =>
+          data.map((item: Products) => new Products(item.id, item.description, item.genre, item.image_url, item.price, item.title))
+        )
+      )
+
   }
 
   // add product to cart
@@ -46,5 +56,13 @@ export class ProductsService {
       // use notification
       this.notifierService.notify("error", "The item was remove!");
     }
+  }
+
+  numberOfPages(products:any,pageSize:any): Number {
+    return Math.ceil(products.length / pageSize);
+  }
+
+  setResultOfFiltered(query:any,products:any) {
+    return (query) ? products.filter(p => p.title.toLowerCase().includes(query.toLowerCase())) : products;
   }
 }

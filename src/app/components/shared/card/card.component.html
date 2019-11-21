@@ -14,7 +14,8 @@
           <p>
            {{ item[0].description }}
           </p>
-          <p><b>Price:</b> ${{ item[0].price * qty }}</p>
+          <p *ngIf="qty != 0"><b>Price:</b> ${{ item[0].price * qty }}</p>
+          <p *ngIf="qty == 0"><b>Price:</b> ${{ item[0].price}}</p>
           <p>
             <mat-form-field class="example-full-width">
               <input

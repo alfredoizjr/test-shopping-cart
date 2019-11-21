@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
+import { Products } from 'src/app/model/products';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-card',
@@ -8,26 +10,36 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class CardComponent implements OnInit {
 
-  public qty:number = 1; // flat of qty
-  @Input() item:[] = [] // data coming from father component
+  public qty: number = 0; // flat of qty
+  @Input() item: [] = [] // data coming from father component
 
-  constructor(private productsServ: ProductsService) { }
+  constructor(private cartServ: CartService) { }
 
   ngOnInit() {
   }
 
   // add product to the localstorage
-  addItemToCart(product:any) {
+  addItemToCart(product: Products) {
     //build new object
+    // if (this.qty == 0) {
+    //   this.qty = 1;
+    // }
     let newObject: any = {
       id: product.id,
       title: product.title,
-      gerne: product.gerne,
+      gerne: product.genre,
       description: product.description,
-      price: product.price * this.qty,
-      qty: this.qty
     }
-    this.productsServ.addProduct(newObject);
+    newObject.price = (this.qty === 0) ? product.price : Number(product.price) * this.qty;
+    newObject.qty = (this.qty === 0) ? 1 : this.qty++;
+
+    if (this.qty === 0) {
+      this.qty = 1;
+    }
+
+    this.cartServ.addItemTocart(newObject);
+    //let newObject = new Products(product.id,product.description,product.genre,product.image_url,product.price,product.title,product.qty);
+    //this.productsServ.addProduct(newObject);
   }
 
 }

@@ -11,6 +11,6 @@
 </section>
 <div class="pagination">
         <button mat-fab [disabled]="curPage == 1" (click)="curPage = curPage - 1"><mat-icon>keyboard_arrow_left</mat-icon></button>
-        <span>Page {{curPage}} of {{ numberOfPages() }}</span>
+        <span>Page {{curPage}} of {{ productsServ.numberOfPages(queryFiltered,10) }}</span>
         <button mat-fab [disabled]="curPage >= queryFiltered.length/pageSize" (click)="curPage = curPage + 1"><mat-icon>keyboard_arrow_right</mat-icon></button>
 </div>
