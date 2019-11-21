@@ -43,19 +43,23 @@ export class CartService {
 
   // Get the total of the pricesß
 
-  getGranTotal(products: Products[]) {
+  getGranTotal(products: any[]) {
     let total = null;
     products.forEach((item) => {
-      total += item.price;
+      if(item.newPrice) {
+        total += item.newPrice;
+      } else {
+        total += item.price;
+      }
     });
     return total;
   }
 
   updateQty(value: any, product: any) {
+
     this.cartList.forEach((item: any) => {
       if (item.id === product.id) {
-        item.qty = value;
-        item.price = item.price * item.qty;
+        item.newPrice = item.price * value;
       }
     });
   }

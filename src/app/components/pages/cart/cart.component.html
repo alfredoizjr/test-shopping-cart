@@ -9,7 +9,8 @@
         <b>Genre:</b> <i>{{ product?.genre }}</i>
       </p>
       <p><b>Description:</b> {{ product?.description }}</p>
-      <p><b>Price:</b> ${{ product?.price}}</p>
+      <p *ngIf="product.newPrice"><b>Price:</b> ${{ product?.newPrice}}</p>
+      <p *ngIf="!product.newPrice"><b>Price:</b> ${{ product?.price}}</p>
       <mat-form-field class="example-full-width">
         <input
           #qty
@@ -18,7 +19,6 @@
           type="number"
           min="1"
           name="qty"
-          value="1"
           [(ngModel)]="product.qty"
           (change)="updateQtyNumber(qty.value,product)"
         />
