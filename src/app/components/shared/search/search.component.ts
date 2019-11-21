@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +7,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
 
-  @Output() sendResultSearch: EventEmitter<String>
+  @Output() sendResultSearch: EventEmitter<string>;
 
   constructor() {
     this.sendResultSearch = new EventEmitter();
@@ -25,7 +24,6 @@ export class SearchComponent implements OnInit {
     if (query) {
       this.sendResultSearch.emit(query);
     }
-      
   }
 
 }

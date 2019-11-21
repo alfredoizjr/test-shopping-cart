@@ -11,19 +11,19 @@ import { Subscription } from 'rxjs';
 })
 export class ProductComponent implements OnInit, OnDestroy {
 
-  public id: string = null;
+  public id: string ;
   public product: any[] = [];
   public routerSubcribe: Subscription;
   public productSubcription: Subscription;
-  public qty: number = 1;
+  public qty: number;
 
   constructor(
     private activeRouter: ActivatedRoute,
     private productServ: ProductsService,
-    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+    this.qty = 1;
     // get id parmas from url
     this.routerSubcribe = this.activeRouter.params.subscribe(params => {
       this.id = params.id;
@@ -38,15 +38,15 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   // add product to cart
   setProduct(product: any) {
-    //build new object
-    let newObject: any = {
+    // build new object
+    const newObject: any = {
       id: product.id,
       title: product.title,
       gerne: product.gerne,
       description: product.description,
       price: product.price * this.qty,
       qty: this.qty
-    }
+    };
 
     this.productServ.addProduct(newObject);
 

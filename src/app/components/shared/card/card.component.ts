@@ -10,26 +10,24 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CardComponent implements OnInit {
 
-  public qty: number = 0; // flat of qty
-  @Input() item: [] = [] // data coming from father component
+  public qty: number; // flat of qty
+  @Input() item: [] = []; // data coming from father component
 
   constructor(private cartServ: CartService) { }
 
   ngOnInit() {
+    this.qty = 0;
   }
 
   // add product to the localstorage
   addItemToCart(product: Products) {
-    //build new object
-    // if (this.qty == 0) {
-    //   this.qty = 1;
-    // }
-    let newObject: any = {
+
+    const newObject: any = {
       id: product.id,
       title: product.title,
       gerne: product.genre,
       description: product.description,
-    }
+    };
     newObject.price = (this.qty === 0) ? product.price : Number(product.price) * this.qty;
     newObject.qty = (this.qty === 0) ? 1 : this.qty++;
 
@@ -38,8 +36,6 @@ export class CardComponent implements OnInit {
     }
 
     this.cartServ.addItemTocart(newObject);
-    //let newObject = new Products(product.id,product.description,product.genre,product.image_url,product.price,product.title,product.qty);
-    //this.productsServ.addProduct(newObject);
   }
 
 }

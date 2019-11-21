@@ -11,15 +11,16 @@ import { Products } from 'src/app/model/products';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public products: Products[] = [];
-  public loading: boolean = true;
+  public loading: boolean;
   public queryFiltered: Products[] = [];
   public curPage: number;
   public pageSize: number;
-  public subcribe: Subscription
+  public subcribe: Subscription;
 
   constructor(private productsServ: ProductsService) { }
 
   ngOnInit() {
+    this.loading = true;
     // subcribe to the observable to get the data and print it
     this.subcribe = this.productsServ.getProducts()
       .subscribe((data: Products[]) => {

@@ -20,7 +20,7 @@
           name="qty"
           value="1"
           [(ngModel)]="product.qty"
-          (change)="updateQty(qty.value,product)"
+          (change)="updateQtyNumber(qty.value,product)"
         />
       </mat-form-field>
       <button mat-flat-button color="primary" (click)="removeItem(product.id)">
